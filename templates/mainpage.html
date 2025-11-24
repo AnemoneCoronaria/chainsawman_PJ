@@ -2,22 +2,50 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MainPage</title>
+    <title>헌터 관리 시스템 현황판</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f5f5f5; }
+        h1 { text-align: center; margin-top: 20px; }
+        .stats { text-align: center; margin: 20px; }
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 60%;
+            background: #fff;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        th { background-color: #eee; }
+    </style>
 </head>
 <body>
-    <h1>Chainsawman DB Dashboard</h1>   <!--뭐라고 하면 좋을까.. 현황판? 음... 까리한거 없나?-->
-    <p>👤 인간 수: {{ human_count }}</p>
-    <p>👹 악마 수: {{ demon_count }}</p>
+    <h1>⚔️ Division 4 작전 기록판</h1>
 
-    <h2>팀별 인간 수</h2>
-    <ul>
+    <div class="stats">
+        <p>🙋 현재 로그인한 헌터: {{ current_user.name }}</p>
+        <p>🆔 헌터 ID: {{ current_user.human_id }}</p>
+        <p>📌 상태: {{ current_user.status }}</p>
+
+        <p>👤 인간 수: {{ human_count }}</p>
+        <p>👹 악마 수: {{ demon_count }}</p>
+    </div>
+
+    <h2 style="text-align:center;">팀별 인간 수</h2>
+    <table>
+        <tr>
+            <th>팀 이름</th>
+            <th>인간 수</th>
+        </tr>
         {% for team_name, count in team_stats %}
-        <li>
-            {{ team_name }}: {{ count }} 명
-        </li>
+        <tr>
+            <td>{{ team_name }}</td>
+            <td>{{ count }} 명</td>
+        </tr>
         {% endfor %}
-    </ul>
-
+    </table>
 </body>
 </html>

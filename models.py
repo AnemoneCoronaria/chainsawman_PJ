@@ -20,7 +20,7 @@ class Team(db.Model):
 # -----------------------------
 # Human 테이블
 # -----------------------------
-class Human(db.Model):
+class Human(db.Model, UserMixin):
     __tablename__ = 'human'
     __table_args__ = {'extend_existing': True}
     human_id = db.Column(db.Integer, primary_key=True)
@@ -31,6 +31,11 @@ class Human(db.Model):
     contracts = db.relationship('Contract', backref='human', lazy=True)
     bounty_claims = db.relationship('BountyClaim', backref='human', lazy=True)
     account = db.relationship('Account', backref='human', uselist=False)
+
+        # Flask-Login이 세션 관리할 때 필요한 ID 반환
+    def get_id(self):
+        return str(self.human_id)
+
 
 
 # -----------------------------
