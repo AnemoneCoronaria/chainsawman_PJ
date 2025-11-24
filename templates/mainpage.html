@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MainPage</title>
+</head>
+<body>
+    <h1>Chainsawman DB Dashboard</h1>   <!--뭐라고 하면 좋을까.. 현황판? 음... 까리한거 없나?-->
+    <p>👤 인간 수: {{ human_count }}</p>
+    <p>👹 악마 수: {{ demon_count }}</p>
+
+    <h2>팀별 인간 수</h2>
+    <ul>
+        {% for team_name, count in team_stats %}
+        <li>
+            {{ team_name }}: {{ count }} 명
+        </li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
