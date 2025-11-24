@@ -1,0 +1,109 @@
+insert into team (team_name, region) VALUES ('공안 특이 4과', '도쿄')
+
+insert into human (name, status, team_id) 
+VALUES 
+('마키마', 'ACTIVE', 1),
+('덴지', 'ACTIVE', 1),
+('파워', 'ACTIVE', 1),
+('아키 하야카와', 'ACTIVE', 1),
+('히메노', 'ACTIVE', 1);
+
+
+
+insert into demon (name, grade, bounty, civilian_killed_total, civilian_injured_total)
+values 
+('혈액 악마', 'B', 100000, 50, 20),
+('상어 악마', 'B', 80000, 30, 10),
+('폭력 악마', 'A', 200000, 200, 50),
+('천사 악마', 'A', 250000, 100, 30),
+('거미 악마', 'A', 180000, 70, 25),
+('여우 악마', 'C', 50000, 10, 5),
+('저주 악마', 'S', 400000, 500, 100),
+('미래 악마', 'A', 300000, 0, 0),
+('유령 악마', 'B', 120000, 40, 15);
+
+INSERT INTO Demon (name, grade, bounty, civilian_killed_total, civilian_injured_total)
+VALUES ('체인소 악마', 'SS', 1000000, 0, 0);
+
+INSERT INTO Demon (name, grade, bounty, civilian_killed_total, civilian_injured_total)
+VALUES ('지배 악마', 'SS', 2000000, 1000, 200);
+
+
+insert into contract (human_id, demon_id, cost_type, cost_desc, status)
+values 
+(2, 10, 'LIFE', '심장을 내어주며 체인소맨으로 각성', 'ACTIVE'),
+(3, 1, 'OTHER', '혈액 악마의 힘을 사용', 'ACTIVE'),
+(4, 6, 'EMOTION', '손가락을 희생하여 여우 악마를 소환', 'ACTIVE'),
+(4, 7, 'LIFE', '저주 검 사용 시 수명 단축', 'ACTIVE'),
+(4, 8, 'LIFE', '남은 수명을 일부 바쳐 미래 악마와 계약', 'ACTIVE'),
+(5, 9, 'OTHER', '자신의 신체 일부를 유령 악마에게 제공', 'BROKEN'),
+(1, 11, 'OTHER', '지배 능력으로 악마들을 강제로 복종시킴', 'ACTIVE');
+
+INSERT INTO Mission (team_id, objective, target_desc, status, created_at, due_date)
+VALUES
+(1, '카타나맨 체포 작전', '카타나맨과 야쿠자 조직', 'SUCCESS', '1997-11-01', '1997-11-05'),
+(1, '건마 파편 회수 작전', '건마의 파편 수집', 'FAIL', '1998-01-10', '1998-01-20'),
+(1, '국제 악마 사냥 작전', '중국 헌터 및 국제 악마 세력', 'FAIL', '1998-05-15', '1998-05-30');
+
+INSERT INTO Demon (name, grade, bounty, civilian_killed_total, civilian_injured_total)
+VALUES ('카타나맨', 'S', 500000, 200, 50),
+       ('건마', 'SS', 5000000, 1000000, 200000),
+       ('국제 악마 세력', 'S', 800000, 500, 150);
+
+
+-- 카타나맨 전투
+INSERT INTO Battle (mission_id, demon_id, started_at, ended_at, location, outcome, civilian_killed, civilian_injured, notes)
+VALUES (1, 13, '1997-11-02 14:00:00', '1997-11-02 16:00:00', '도쿄', 'HUMAN_WIN', 20, 10, '덴지와 아키가 카타나맨과 교전');
+
+-- 건마 파편 전투
+INSERT INTO Battle (mission_id, demon_id, started_at, ended_at, location, outcome, civilian_killed, civilian_injured, notes)
+VALUES (2, 14, '1998-01-12 10:00:00', '1998-01-12 12:00:00', '도쿄 외곽', 'DEMON_WIN', 100, 50, 'Division 4가 건마 파편과 교전했으나 실패');
+
+-- 국제 악마 전투
+INSERT INTO Battle (mission_id, demon_id, started_at, ended_at, location, outcome, civilian_killed, civilian_injured, notes)
+VALUES (3, 15, '1998-05-20 09:00:00', '1998-05-20 13:00:00', '도쿄', 'DRAW', 50, 30, '콴시와 국제 악마 세력과의 전투');
+
+
+INSERT INTO BountyClaim (battle_id, demon_id, human_id, amount, claim_date, notes)
+VALUES (2, 13, 2, 500000, '1997-11-03 10:00:00', '덴지가 카타나맨을 처치하고 현상금 청구');
+
+INSERT INTO Account (hunter_id, balance, total_income, total_spent, last_tx_type, last_tx_amount, last_tx_desc, history, updated_at)
+VALUES (2, 500000, 500000, 0, 'IN', 500000, '카타나맨 현상금', '첫 번째 현상금 수령', NOW());
+
+
+-- 카타나맨 현상금 청구
+INSERT INTO BountyClaim (battle_id, demon_id, human_id, amount, claim_date, notes)
+VALUES (2, 13, 2, 500000, '1997-11-03 10:00:00', '덴지가 카타나맨을 처치하고 현상금 청구');
+
+-- 건마 파편 회수 실패 (보상 없음)
+INSERT INTO BountyClaim (battle_id, demon_id, human_id, amount, claim_date, notes)
+VALUES (3, 14, 4, 0, '1998-01-13 09:00:00', 'Division 4가 건마 파편 회수 실패');
+
+-- 국제 악마 전투 실패 (보상 없음)
+INSERT INTO BountyClaim (battle_id, demon_id, human_id, amount, claim_date, notes)
+VALUES (4, 15, 1, 0, '1998-05-21 11:00:00', '국제 악마 전투 실패로 보상 없음');
+
+
+
+-- 중국 헌터 팀
+INSERT INTO Team (team_name, region)
+VALUES ('중국 헌터 팀', '베이징');
+
+-- 콴시 (중국 헌터)
+INSERT INTO Human (name, status, team_id)
+VALUES ('콴시', 'ACTIVE', 2);   -- 여기서 team_id=2는 방금 추가한 중국 헌터 팀
+
+INSERT INTO Mission (team_id, objective, target_desc, status, created_at, due_date)
+VALUES (2, '국제 악마 교전', '국제 악마 세력과 충돌', 'FAIL', '1998-06-01', '1998-06-10');
+
+INSERT INTO Battle (mission_id, demon_id, started_at, ended_at, location, outcome, civilian_killed, civilian_injured, notes)
+VALUES (4, 15, '1998-06-05 10:00:00', '1998-06-05 13:00:00', '베이징', 'DEMON_WIN', 80, 40, '콴시와 중국 헌터 팀이 국제 악마와 교전했으나 패배');
+
+INSERT INTO BountyClaim (battle_id, demon_id, human_id, amount, claim_date, notes)
+VALUES (4, 15, 6, 0, '1998-06-06 09:00:00', '콴시가 국제 악마 전투 후 보상 청구 실패');
+
+INSERT INTO Demon (name, grade, bounty, civilian_killed_total, civilian_injured_total)
+VALUES ('활의 악마', 'S', 600000, 300, 120);
+
+INSERT INTO Contract (human_id, demon_id, cost_type, cost_desc, status)
+VALUES (6, 16, 'OTHER', '활의 악마와 동화된 무기 인간', 'ACTIVE');
